@@ -34,3 +34,6 @@ Gemfile and Gemfile.lock
 3. Gemfile has information on where to get the gems from and what gems are required
 4. Gemfile.lock has information on what was the last environment that should be able to run your app. 
    Bundler will use it to install the same versions of gems even if Gemfile could potentially allow for newer versions to be installed.
+
+Provide information on Ruby version for people using the project
+1. rbenv local <version name e.g. 3.3.0>
