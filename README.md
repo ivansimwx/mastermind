@@ -17,3 +17,13 @@ From Github:
 1. Create new repo on Github
 2. Copy the SSH address
 3. git clone <ssh address> into desired directory 
+
+README file
+1. Create a README.md file if repo was created with existing local code
+
+OOP - Planning project file structure
+1. lib directory to contain mastermind ruby files
+2. mastermind.rb to require all the files and serves as entry to the game
+3. player.rb to manage the player-specific information and moves
+4. board.rb to manage the state of the game, checking for wiin conditions and handling moves
+5. game.rb to orchestra the flow of the game, handles turns and checks for end of game

@@ -1,5 +1,3 @@
-#game
-
 ##select who guess
 puts " Who will be the code maker? Type 'me' to be the code maker or 'com' for the computer to be the code maker'
 codemaker = gets.chomp.lowercase.to_i
