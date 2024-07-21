@@ -37,3 +37,20 @@ Gemfile and Gemfile.lock
 
 Provide information on Ruby version for people using the project
 1. rbenv local <version name e.g. 3.3.0>
+
+Add rubocop to improve readability of ode
+1. bundle add rubocop
+2. remove requirement as it is an optional file <require: false>
+3. <bundle exec rubocop <optional:filename>> to run it. Filename when provided will run rubocop only on that file
+4. create a .rubocop.yml file or by using <bundle exec rubocop --init>. this is the configuration file for rubocop
+5. Generally we can use the following configurations:
+   require: rubocop-performance
+
+   AllCops:
+   NewCops: enable
+
+   Style/StringLiterals:
+   EnforcedStyle: double_quotes
+
+   Style/FrozenStringLiteralComment:
+   EnforcedStyle: never
