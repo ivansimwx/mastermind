@@ -27,3 +27,10 @@ OOP - Planning project file structure
 3. player.rb to manage the player-specific information and moves
 4. board.rb to manage the state of the game, checking for wiin conditions and handling moves
 5. game.rb to orchestra the flow of the game, handles turns and checks for end of game
+
+Gemfile and Gemfile.lock
+1. <bundle init> to create a default Gemfile in the current working directory
+2. <bundle add <<gem name>> to add the gem
+3. Gemfile has information on where to get the gems from and what gems are required
+4. Gemfile.lock has information on what was the last environment that should be able to run your app. 
+   Bundler will use it to install the same versions of gems even if Gemfile could potentially allow for newer versions to be installed.
