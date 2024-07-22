@@ -11,46 +11,38 @@ class GameController
 
   def initialize(player, computer)
     puts "\nWelcome #{player.name} to a new game of Mastermind".black.on_white.blink
-    @computer1 = computer
-    @player1 = player
     @secret_code = []
     @round = 1
+    @codemaker = @computer1 = computer
+    @solver = @player1 = player
+    @guess_attempt = []
   end
 
   def play
-    loop do
-      ask_codemaker
-      break if valid_codemaker?(gets.chomp.to_s)
-    end
-    puts "\nCodemaker is #{@codemaker.name}".colorize(color: :green, background: :black)
-    @secret_code = @codemaker == @computer1 ? @computer1.rand_code : @player1.input_code
-    puts "secret code is #{@secret_code}"
+    decide_codemaker
+    decide_code
     loop do
       guess_turn
-      break if game_end?(@codemaker.guess_attempt)
+      break if game_end?(@guess_attempt)
 
-      if @solver == @player1
-        feedback_guess
-      else
-        puts "#{@solver.name} has guessed #{@solver.guess_attempt}"
-      end
+      feedback
     end
   end
 
-  def ask_codemaker
-    puts "\nWho will be the Codemaker i.e. person who creates the secret code ?".colorize(color: :black, background: :white)
-    puts "enter c for computer OR m for myself".colorize(color: :black, background: :white)
-    # to put logic for collect and check inputs, for now just assume it is computer first
+  def decide_codemaker
+    loop do
+      puts "\nWho will be the Codemaker i.e. person who creates the secret code ?".colorize(color: :black, background: :white)
+      puts "enter c for computer OR m for myself".colorize(color: :black, background: :white)
+      break if valid_codemaker?(gets.chomp.to_s)
+    end
+    puts "\nCodemaker is #{@codemaker.name}".colorize(color: :green, background: :black)
   end
 
   def valid_codemaker?(select_string)
     if CODEMAKER_OPTIONS.any?(select_string)
-      if select_string == "m"
+      if select_string == "m" # default intialize assumes codemaker is computer
         @codemaker = @player1
         @solver = @computer1
-      else
-        @codemaker = @computer1
-        @solver = @player1
       end
       true
     else
@@ -58,14 +50,32 @@ class GameController
     end
   end
 
+  def decide_code
+    @secret_code = @codemaker == @computer1 ? @codemaker.rand_code : @codemaker.input_code # @computer1.rand_code : @player1.input_code
+    puts "secret code is #{@secret_code}"
+  end
+
   def guess_turn
-    if @codemaker == @computer1
+    if @solver == @player1
       loop do
-        @player1.guess_get
-        break if @player1.valid_code?(@player1.guess_attempt)
+        @guess_attempt = @solver.guess_get
+        break if valid_code?(@guess_attempt)
       end
     else
-      @computer1.rand_guess
+      @guess_attempt = @solver.rand_guess
+    end
+  end
+
+  def valid_code?(guess_array)
+    count = 0
+    guess_array.each do |guess_colour|
+      count += 1 if COLOURS.any?(guess_colour)
+    end
+    if count == 4
+      true
+    else
+      puts "\nYou have provided an invalid guess. Please try again".colorize(color: :white, background: :red)
+      false
     end
   end
 
@@ -84,12 +94,16 @@ class GameController
     end
   end
 
-  def feedback_guess
-    puts "Feedback on your guess".colorize(color: :white, background: :green)
-    check_peg
+  def feedback
+    if @solver == @player1
+      puts "Feedback on your guess".colorize(color: :white, background: :green)
+      feedback_peg
+    else
+      puts "#{@solver.name} has guessed #{@guess_attempt}"
+    end
   end
 
-  def check_peg
+  def feedback_peg
     check_total_peg
     check_white_peg
     check_black_peg
@@ -98,7 +112,7 @@ class GameController
   def check_total_peg
     @total_peg = 0
     temp_code = @secret_code.dup
-    @player1.guess_attempt.each do |guess_colour|
+    @guess_attempt.each do |guess_colour|
       temp_code.each_with_index do |code_colour, position|
         next unless guess_colour == code_colour
 
@@ -111,7 +125,7 @@ class GameController
 
   def check_white_peg
     @white_peg = 0
-    @player1.guess_attempt.each_with_index do |guess_colour, position|
+    @guess_attempt.each_with_index do |guess_colour, position|
       @white_peg += 1 if guess_colour == @secret_code[position]
     end
     puts "White: #{@white_peg} (White means right colour and position)".colorize(color: :black, background: :white)

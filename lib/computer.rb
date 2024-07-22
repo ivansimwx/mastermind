@@ -1,6 +1,6 @@
 # Manage the state of the game, checking for win conditions and handling moves
 class Computer
-  attr_accessor :secret_code, :name, :guess_attempt
+  attr_reader :name
 
   def initialize
     @name = "Computer"
@@ -13,6 +13,6 @@ class Computer
   end
 
   def rand_guess
-    @guess_attempt = Array.new(CODE_LENGTH) { COLOURS.sample }
+    Array.new(CODE_LENGTH) { COLOURS.sample }
   end
 end
