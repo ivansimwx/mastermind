@@ -17,7 +17,7 @@ class Player
     puts "\nEnter your guess which must be made up of #{CODE_LENGTH} colours".colorize(color: :black, background: :white)
     puts "e.g. bgop will represent blue, green, orange, purple".colorize(color: :black, background: :white)
     puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(color: :black, background: :white)
-    @guess_attempt = gets.chomp.to_s.downcase.split('')
+    @guess_attempt = gets.chomp.to_s.downcase.chars
   end
 
   def valid?
@@ -28,7 +28,7 @@ class Player
     if @count == 4
       true
     else
-      puts "\nYou have provided an invalid guess. Please try again" .colorize(color: :white, background: :red)
+      puts "\nYou have provided an invalid guess. Please try again".colorize(color: :white, background: :red)
       false
     end
   end

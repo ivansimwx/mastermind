@@ -47,6 +47,7 @@ class GameController
       true
     elsif @round == 12
       puts "\n#{@player1.name} has lost!".colorize(color: :white, background: :red)
+      puts "\n The secret code is #{@secret_code}"
       true
     elsif @round < 12
       puts "\nYou have #{12-@round} more guess(es)".colorize(:green)
@@ -55,21 +56,42 @@ class GameController
     end
   end
 
-  def check_peg
-    @total_peg = 0
-    @white_peg = 0
-    @black_peg = 0
-    @player1.guess_attempt.each_with_index do |guess_colour, position|
-      @total_peg += 1 if @secret_code.any?(guess_colour)
-      @white_peg += 1 if @player1.guess_attempt[position] == @secret_code[position]
-    end
-    @black_peg = @total_peg - @white_peg
+  def feedback_guess
+    puts "Feedback on your guess".colorize(color: :white, background: :green)
+    check_peg
   end
 
-  def feedback_guess
-    check_peg
-    puts "Feedback on your guess".colorize(color: :white, background: :green)
+  def check_peg
+    check_total_peg
+    check_white_peg
+    check_black_peg
+  end
+
+  def check_total_peg
+    @total_peg = 0
+    temp_code = @secret_code.dup
+    @player1.guess_attempt.each do |guess_colour|
+      temp_code.each_with_index do |code_colour, position|
+        next unless guess_colour == code_colour
+
+        @total_peg += 1
+        temp_code.delete_at(position)
+        break
+      end
+    end
+  end
+
+  def check_white_peg
+    @white_peg = 0
+    @player1.guess_attempt.each_with_index do |guess_colour, position|
+      @white_peg += 1 if guess_colour == @secret_code[position]
+    end
     puts "White: #{@white_peg} (White means right colour and position)".colorize(color: :black, background: :white)
+  end
+
+  def check_black_peg
+    @black_peg = 0
+    @black_peg = @total_peg - @white_peg
     puts "Black: #{@black_peg} (Black means right colour but wrong position)".colorize(color: :white, background: :black)
   end
 end
