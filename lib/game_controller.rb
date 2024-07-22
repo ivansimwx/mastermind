@@ -22,8 +22,8 @@ class GameController
       ask_codemaker
       break if valid_codemaker?(gets.chomp.to_s)
     end
-    @secret_code = @computer1.rand_code # if decide_guesser == "computer"
-    puts "\n Codemaker is #{@codemaker}".colorize(color: :green, background: :black)
+    @secret_code = @codemaker == @computer1 ? @computer1.rand_code : @player1.input_code
+    puts "\n Codemaker is #{@codemaker.name}".colorize(color: :green, background: :black)
     loop do
       guess_turn
       break if game_end?
@@ -40,7 +40,7 @@ class GameController
 
   def valid_codemaker?(select_string)
     if CODEMAKER_OPTIONS.any?(select_string)
-      @codemaker = select_string == "m" ? @player1.name : @computer1.name
+      @codemaker = select_string == "m" ? @player1 : @computer1
       true
     else
       puts "You have provided an invalid selection. Please try again"
@@ -51,7 +51,7 @@ class GameController
     # if human is guesser
     loop do
       @player1.guess_get
-      break if @player1.valid_guess?
+      break if @player1.valid_code?(@player1.guess_attempt)
     end
   end
 
