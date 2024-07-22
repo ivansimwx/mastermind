@@ -12,8 +12,10 @@ class Player
     puts "e.g. bgop will represent blue, green, orange, purple".colorize(color: :black, background: :white)
     puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(color: :black, background: :white)
     @secret_code = gets.chomp.to_s.chars
+    # puts @secret_code
     break if valid_code?(@secret_code)
     end
+    @secret_code
   end
 
   def guess_get

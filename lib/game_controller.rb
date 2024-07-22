@@ -22,13 +22,18 @@ class GameController
       ask_codemaker
       break if valid_codemaker?(gets.chomp.to_s)
     end
+    puts "\nCodemaker is #{@codemaker.name}".colorize(color: :green, background: :black)
     @secret_code = @codemaker == @computer1 ? @computer1.rand_code : @player1.input_code
-    puts "\n Codemaker is #{@codemaker.name}".colorize(color: :green, background: :black)
+    puts "secret code is #{@secret_code}"
     loop do
       guess_turn
-      break if game_end?
+      break if game_end?(@codemaker.guess_attempt)
 
-      feedback_guess
+      if @solver == @player1
+        feedback_guess
+      else
+        puts "#{@solver.name} has guessed #{@solver.guess_attempt}"
+      end
     end
   end
 
@@ -40,7 +45,13 @@ class GameController
 
   def valid_codemaker?(select_string)
     if CODEMAKER_OPTIONS.any?(select_string)
-      @codemaker = select_string == "m" ? @player1 : @computer1
+      if select_string == "m"
+        @codemaker = @player1
+        @solver = @computer1
+      else
+        @codemaker = @computer1
+        @solver = @player1
+      end
       true
     else
       puts "You have provided an invalid selection. Please try again"
@@ -48,23 +59,26 @@ class GameController
   end
 
   def guess_turn
-    # if human is guesser
-    loop do
-      @player1.guess_get
-      break if @player1.valid_code?(@player1.guess_attempt)
+    if @codemaker == @computer1
+      loop do
+        @player1.guess_get
+        break if @player1.valid_code?(@player1.guess_attempt)
+      end
+    else
+      @computer1.rand_guess
     end
   end
 
-  def game_end?
-    if @player1.guess_attempt == @secret_code
-      puts "\n#{@player1.name} has won!".colorize(color: :white, background: :green)
+  def game_end?(guess_array)
+    if guess_array == @secret_code
+      puts "\n#{@solver.name} has won in #{@round} round(s)!".colorize(color: :white, background: :green)
       true
     elsif @round == 12
-      puts "\n#{@player1.name} has lost!".colorize(color: :white, background: :red)
+      puts "\n#{@solver.name} has lost!".colorize(color: :white, background: :red)
       puts "\n The secret code is #{@secret_code}"
       true
     elsif @round < 12
-      puts "\nYou have #{12-@round} more guess(es)".colorize(:green)
+      puts "\n#{@solver.name} has #{12-@round} more guess(es)".colorize(:green)
       @round += 1
       false
     end
