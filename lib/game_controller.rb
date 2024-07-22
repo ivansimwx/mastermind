@@ -1,4 +1,5 @@
 require_relative "player"
+require_relative "computer"
 COLOURS = %w[b g o p]
 CODE_LENGTH = 4
 
@@ -11,12 +12,15 @@ class GameController
     @computer1 = computer
     @player1 = player
     @secret_code = []
+    @round = 1
   end
 
   def play
     decide_mastermind
-    guess_turn
-    check_outcome
+    loop do
+      guess_turn
+      break if game_end?
+    end
   end
 
   def decide_mastermind
@@ -33,5 +37,24 @@ class GameController
       @player1.guess_get
       break if @player1.valid?
     end
+  end
+
+  def game_end?
+    if @player1.guess_attempt == @secret_code
+      puts "\n#{@player1.name} has won!".colorize(color: :white, background: :green)
+      true
+    elsif @round == 12
+      puts "\n#{@player1.name} has lost!".colorize(color: :white, background: :red)
+      true
+    elsif @round < 12
+      puts "\nYou have #{12-@round} more guess(es)".colorize(:red)
+      @round += 1
+      feedback_guess
+      false
+    end
+  end
+
+  def feedback_guess
+    # to define logic
   end
 end
