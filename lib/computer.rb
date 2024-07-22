@@ -7,12 +7,12 @@ class Computer
   end
 
   def rand_code
-    # COLOURS.sample(CODE_LENGTH)
-    CODE_LENGTH.times.map{ COLOURS.sample}
+    Array.new(CODE_LENGTH) { COLOURS.sample } 
+    # alternative CODE_LENGTH.times.map{ COLOURS.sample}
+    # COLOURS.sample(CODE_LENGTH) would create a unique set of values i.e. no duplicates which Mastermind allows for
   end
 
   def rand_guess
-    # @guess_attempt = COLOURS.sample(CODE_LENGTH)
-    @guess_attempt = CODE_LENGTH.times.map{ COLOURS.sample}
+    @guess_attempt = Array.new(CODE_LENGTH) { COLOURS.sample }
   end
 end
