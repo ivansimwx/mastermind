@@ -22,8 +22,8 @@ README file
 1. Create a README.md file if repo was created with existing local code
 
 OOP - Planning project file structure
-1. lib directory to contain mastermind ruby files
-2. mastermind.rb to require all the files and serves as entry to the game
+1. mastermind.rb as the main executable file
+2. lib directory to contain sub object files
 3. player.rb to manage the player-specific information and moves
 4. computer.rb to manage the computer-specific information and moves
 5. game_controller.rb to orchestra the flow of the game, handles turns and checks for end of game
