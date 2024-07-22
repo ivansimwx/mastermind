@@ -7,10 +7,12 @@ class Computer
   end
 
   def rand_code
-    COLOURS.sample(CODE_LENGTH)
+    # COLOURS.sample(CODE_LENGTH)
+    CODE_LENGTH.times.map{ COLOURS.sample}
   end
 
   def rand_guess
-    @guess_attempt = COLOURS.sample(CODE_LENGTH)
+    # @guess_attempt = COLOURS.sample(CODE_LENGTH)
+    @guess_attempt = CODE_LENGTH.times.map{ COLOURS.sample}
   end
 end
