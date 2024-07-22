@@ -20,7 +20,7 @@ class Player
     @guess_attempt = gets.chomp.to_s.downcase.chars
   end
 
-  def valid?
+  def valid_guess?
     @count = 0
     @guess_attempt.each do |guess_colour|
       @count += 1 if COLOURS.any?(guess_colour)

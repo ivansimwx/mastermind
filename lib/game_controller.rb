@@ -1,6 +1,8 @@
 require_relative "player"
 require_relative "computer"
 COLOURS = %w[b g o p]
+CODEMAKER_OPTIONS = %w[c m]
+
 CODE_LENGTH = 4
 
 # Orchestra the flow of the game, handles turns and checks for end of game
@@ -16,7 +18,12 @@ class GameController
   end
 
   def play
-    decide_mastermind
+    loop do
+      ask_codemaker
+      break if valid_codemaker?(gets.chomp.to_s)
+    end
+    @secret_code = @computer1.rand_code # if decide_guesser == "computer"
+    puts "\n Codemaker is #{@codemaker}".colorize(color: :green, background: :black)
     loop do
       guess_turn
       break if game_end?
@@ -25,19 +32,26 @@ class GameController
     end
   end
 
-  def decide_mastermind
-    puts "\nWho will be the Mastermind i.e. person who creates the secret code ?".colorize(color: :black, background: :white)
+  def ask_codemaker
+    puts "\nWho will be the Codemaker i.e. person who creates the secret code ?".colorize(color: :black, background: :white)
     puts "enter c for computer OR m for myself".colorize(color: :black, background: :white)
     # to put logic for collect and check inputs, for now just assume it is computer first
-    @secret_code = @computer1.rand_code # if decide_guesser == "computer"
-    @computer1.name
+  end
+
+  def valid_codemaker?(select_string)
+    if CODEMAKER_OPTIONS.any?(select_string)
+      @codemaker = select_string == "m" ? @player1.name : @computer1.name
+      true
+    else
+      puts "You have provided an invalid selection. Please try again"
+    end
   end
 
   def guess_turn
     # if human is guesser
     loop do
       @player1.guess_get
-      break if @player1.valid?
+      break if @player1.valid_guess?
     end
   end
 
