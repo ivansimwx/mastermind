@@ -1,9 +1,9 @@
 # Manage the state of the game, checking for win conditions and handling moves
 class Computer
-  attr_accessor :secret_code
+  attr_accessor :secret_code, :name
 
   def initialize
-    @secret_code = []
+    @name = "Computer"
   end
 
   def rand_code

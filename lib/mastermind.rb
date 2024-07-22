@@ -1,20 +1,15 @@
 require_relative "computer"
-require_relative "game"
+require_relative "game_controller"
 require_relative "player"
-COLOURS = %w[b g o p]
 
-class Mastermind
-  attr_reader :secret_code
-
-  def initialize
-    
-  end
-end
-
-# game = Mastermind.new
 computer = Computer.new
-secret_code = computer.rand_code
-puts secret_code
+player = Player.new
+game = GameController.new(player, computer)
+game.play
+
+puts game.decide_mastermind
+puts game.secret_code
+
 ##select who guess
 # puts " Who will be the code maker? Type 'me' to be the code maker or 'com' for the computer to be the code maker'
 # codemaker = gets.chomp.lowercase.to_i
@@ -25,8 +20,7 @@ puts secret_code
 # if "com" computer
 # else redo select guess
 
-# #generate secret code if computer is generating
-# array of 4 with each index being a random_from_4_colors (blue, green, orange purple)
+
 
 # #manually selet secret code if human is generating
 
