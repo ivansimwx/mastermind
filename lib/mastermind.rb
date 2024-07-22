@@ -1,7 +1,20 @@
-require_relative computer.rb
-require_relative game.rb
-require_relative player.rb
+require_relative "computer"
+require_relative "game"
+require_relative "player"
+COLOURS = %w[b g o p]
 
+class Mastermind
+  attr_reader :secret_code
+
+  def initialize
+    
+  end
+end
+
+# game = Mastermind.new
+computer = Computer.new
+secret_code = computer.rand_code
+puts secret_code
 ##select who guess
 # puts " Who will be the code maker? Type 'me' to be the code maker or 'com' for the computer to be the code maker'
 # codemaker = gets.chomp.lowercase.to_i
