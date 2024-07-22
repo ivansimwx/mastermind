@@ -1,8 +1,8 @@
-# Orchestra the flow of the game, handles turns and checks for end of game
-require_relative 'player'
+require_relative "player"
 COLOURS = %w[b g o p]
 CODE_LENGTH = 4
 
+# Orchestra the flow of the game, handles turns and checks for end of game
 class GameController
   attr_accessor :guesser, :secret_code
 
@@ -15,7 +15,8 @@ class GameController
 
   def play
     decide_mastermind
-    @player1.guess_turn
+    guess_turn
+    check_outcome
   end
 
   def decide_mastermind
@@ -28,6 +29,9 @@ class GameController
 
   def guess_turn
     # if human is guesser
-    @player1.guess
+    loop do
+      @player1.guess_get
+      break if @player1.valid?
+    end
   end
 end

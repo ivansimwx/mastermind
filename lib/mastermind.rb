@@ -9,7 +9,7 @@ game = GameController.new(player, computer)
 game.play
 
 # puts game.decide_mastermind
- puts game.secret_code
+# puts game.secret_code
 # puts player.guess_attempt
 
 ##select who guess
@@ -22,46 +22,7 @@ game.play
 # if "com" computer
 # else redo select guess
 
-
-
-# #manually selet secret code if human is generating
-
-
-# #guess attempt
-# puts "What is your guess?"
-# puts "input the colours in sequence using the first letter"
-# puts "there are only 4 colours, Blue, Green, Orange, Purple
-# puts "for e.g. Blue, Green, Orange, Purple should be sent as "bgop"
-# guess = gets.chomp
-# check.guess
-# guess.lowercase.to_i
-# guess.split
-
-# #check guess by human is valid
-# guess only includes alphabets b,g,o,p
-# if valid, guess count add by one and return true
-# if not valid, puts "Your guess did not include the appropriate alphabets for colours" and redo guess
-
-# #generate secret code if computer is generating
-# array of 4 with each index being a random_from_4_colors (blue, green, orange purple)
-
-# #manually selet secret code if human is generating
-
-
-# #guess attempt
-# puts "What is your guess?"
-# puts "input the colours in sequence using the first letter"
-# puts "there are only 4 colours, Blue, Green, Orange, Purple
-# puts "for e.g. Blue, Green, Orange, Purple should be sent as "bgop"
-# guess = gets.chomp
-# check.guess
-# guess.lowercase.to_i
-# guess.split
-
-# #check guess by human is valid
-# guess only includes alphabets b,g,o,p
-# if valid, guess count add by one and return true
-# if not valid, puts "Your guess did not include the appropriate alphabets for colours" and redo guess
+# #manually select secret code if human is generating
 
 # #check outcome?
 # - if <12 guesses and guess is correct, puts "victory message"
