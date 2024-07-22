@@ -14,9 +14,8 @@ class GameController
 
   def play
     decide_mastermind
-    
+    @player1.guess_turn
   end
-    
 
   def decide_mastermind
     puts "Who will be the Mastermind i.e. person who creates the secret code ?"
@@ -24,5 +23,10 @@ class GameController
     # to put logic for collect and check inputs, for now just assume it is computer first
     @secret_code = @computer1.rand_code # if decide_guesser == "computer"
     return @computer1.name
+  end
+
+  def guess_turn
+    # if human is guesser
+    @player1.guess
   end
 end
