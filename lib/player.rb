@@ -9,9 +9,9 @@ class Player
 
   def input_code
     loop do
-      puts "Please enter your secret code which must be made up of #{CODE_LENGTH} colours".colorize(color: :black, background: :white)
-      puts "e.g. bgop will represent blue, green, orange, purple".colorize(color: :black, background: :white)
-      puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(color: :black, background: :white)
+      puts "Please enter your secret code which must be made up of #{CODE_LENGTH} colours".colorize(INSTRUCTION_COLOUR)
+      puts "e.g. bgop will represent blue, green, orange, purple".colorize(INSTRUCTION_SUB_COLOUR)
+      puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(INSTRUCTION_SUB_COLOUR)
       @input_code = gets.chomp.to_s.chars
       break if valid_code?(@input_code)
     end
@@ -19,9 +19,9 @@ class Player
   end
 
   def guess_get
-    puts "\nEnter your guess which must be made up of #{CODE_LENGTH} colours".colorize(color: :black, background: :white)
-    puts "e.g. bgop will represent blue, green, orange, purple".colorize(color: :black, background: :white)
-    puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(color: :black, background: :white)
+    puts "\nEnter your guess which must be made up of #{CODE_LENGTH} colours".colorize(INSTRUCTION_COLOUR)
+    puts "e.g. bgop will represent blue, green, orange, purple".colorize(INSTRUCTION_SUB_COLOUR)
+    puts "Colours can be repeated and you can only choose from blue, green, orange and purple".colorize(INSTRUCTION_SUB_COLOUR)
     gets.chomp.to_s.downcase.chars
   end
 end
