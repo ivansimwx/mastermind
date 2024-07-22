@@ -20,6 +20,8 @@ class GameController
     loop do
       guess_turn
       break if game_end?
+
+      feedback_guess
     end
   end
 
@@ -28,7 +30,7 @@ class GameController
     puts "enter c for computer OR m for myself".colorize(color: :black, background: :white)
     # to put logic for collect and check inputs, for now just assume it is computer first
     @secret_code = @computer1.rand_code # if decide_guesser == "computer"
-    return @computer1.name
+    @computer1.name
   end
 
   def guess_turn
@@ -47,14 +49,27 @@ class GameController
       puts "\n#{@player1.name} has lost!".colorize(color: :white, background: :red)
       true
     elsif @round < 12
-      puts "\nYou have #{12-@round} more guess(es)".colorize(:red)
+      puts "\nYou have #{12-@round} more guess(es)".colorize(:green)
       @round += 1
-      feedback_guess
       false
     end
   end
 
+  def check_peg
+    @total_peg = 0
+    @white_peg = 0
+    @black_peg = 0
+    @player1.guess_attempt.each_with_index do |guess_colour, position|
+      @total_peg += 1 if @secret_code.any?(guess_colour)
+      @white_peg += 1 if @player1.guess_attempt[position] == @secret_code[position]
+    end
+    @black_peg = @total_peg - @white_peg
+  end
+
   def feedback_guess
-    # to define logic
+    check_peg
+    puts "Feedback on your guess".colorize(color: :white, background: :green)
+    puts "White: #{@white_peg} (White means right colour and position)".colorize(color: :black, background: :white)
+    puts "Black: #{@black_peg} (Black means right colour but wrong position)".colorize(color: :white, background: :black)
   end
 end
