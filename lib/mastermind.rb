@@ -7,9 +7,9 @@ player = Player.new
 game = GameController.new(player, computer)
 game.play
 
-#puts game.decide_mastermind
-#puts game.secret_code
-puts player.guess_attempt
+# puts game.decide_mastermind
+ puts game.secret_code
+# puts player.guess_attempt
 
 ##select who guess
 # puts " Who will be the code maker? Type 'me' to be the code maker or 'com' for the computer to be the code maker'

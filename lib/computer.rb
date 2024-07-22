@@ -7,6 +7,6 @@ class Computer
   end
 
   def rand_code
-    COLOURS.sample(4)
+    COLOURS.sample(CODE_LENGTH)
   end
 end

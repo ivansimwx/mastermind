@@ -1,6 +1,7 @@
 # Orchestra the flow of the game, handles turns and checks for end of game
 require_relative 'player'
 COLOURS = %w[b g o p]
+CODE_LENGTH = 4
 
 class GameController
   attr_accessor :guesser, :secret_code

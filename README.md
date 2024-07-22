@@ -26,7 +26,7 @@ OOP - Planning project file structure
 2. mastermind.rb to require all the files and serves as entry to the game
 3. player.rb to manage the player-specific information and moves
 4. computer.rb to manage the computer-specific information and moves
-5. game.rb to orchestra the flow of the game, handles turns and checks for end of game
+5. game_controller.rb to orchestra the flow of the game, handles turns and checks for end of game
 
 Gemfile and Gemfile.lock
 1. <bundle init> to create a default Gemfile in the current working directory
