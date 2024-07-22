@@ -7,7 +7,7 @@ class GameController
   attr_accessor :guesser, :secret_code
 
   def initialize(player, computer)
-    puts "Welcome #{player.name} to a new game of Mastermind"
+    puts "\nWelcome #{player.name} to a new game of Mastermind".black.on_white.blink
     @computer1 = computer
     @player1 = player
     @secret_code = []
@@ -19,8 +19,8 @@ class GameController
   end
 
   def decide_mastermind
-    puts "Who will be the Mastermind i.e. person who creates the secret code ?"
-    puts "enter c for computer OR m for myself"
+    puts "\nWho will be the Mastermind i.e. person who creates the secret code ?".colorize(color: :black, background: :white)
+    puts "enter c for computer OR m for myself".colorize(color: :black, background: :white)
     # to put logic for collect and check inputs, for now just assume it is computer first
     @secret_code = @computer1.rand_code # if decide_guesser == "computer"
     return @computer1.name
